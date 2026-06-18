@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistique</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- En-tête avec le titre -->
+    <header class="header">
+        <h1>Logistique</h1>
+    </header>
+
+    <div class="container">
+        <!-- Barre de menu à gauche -->
+        <nav class="sidebar">
+            <ul class="menu">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#reception">Réception</a></li>
+                <li><a href="#distribution">Distribution</a></li>
+                <li><a href="#inventaire">Inventaire</a></li>
+                <li class="menu-item-eleves">
+                    <a href="#eleves" class="menu-eleves-btn">Eleves</a>
+                    <ul class="submenu" id="submenu-eleves">
+                        <li><a href="#eleves-list">Liste des élèves</a></li>
+                        <li><a href="#eleves-add">Ajouter un élève</a></li>
+                    </ul>
+                </li>
+                <li><a href="#rapports">Rapports</a></li>
+                <li><a href="#parametres">Paramètres</a></li>
+            </ul>
+        </nav>
+
+        <!-- Fenêtre centrale -->
+        <main class="content">
+            <section id="accueil" class="section active">
+                <h2>Accueil</h2>
+                <p>Bienvenue dans le système de gestion de logistique.</p>
+                <p>Utilisez le menu à gauche pour naviguer dans les différentes sections.</p>
+            </section>
+
+            <section id="reception" class="section">
+                <h2>Réception</h2>
+                <p>Gérez et suivez vos réceptions en temps réel.</p>
+            </section>
+
+            <section id="distribution" class="section">
+                <h2>Distribution</h2>
+                <div class="distribution-container">
+                    <div class="form-group">
+                        <label for="eleve-select">Sélectionner un élève :</label>
+                        <select id="eleve-select">
+                            <option value="">-- Choisir un élève --</option>
+                        </select>
+                    </div>
+
+                    <div id="vetements-container"></div>
+
+                    <button id="btn-distribuer" class="btn-primary">Distribuer</button>
+                </div>
+
+                <div class="distributions-history">
+                    <h3>Historique des distributions</h3>
+                    <table id="distributions-table">
+                        <thead>
+                            <tr>
+                                <th>Élève</th>
+                                <th>Vêtement</th>
+                                <th>Taille</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="inventaire" class="section">
+                <h2>Inventaire</h2>
+                <div id="inventaire-container"></div>
+            </section>
+
+            <section id="eleves" class="section">
+                <h2>Élèves</h2>
+                <div id="eleves-content"></div>
+            </section>
+
+            <section id="eleves-list" class="section">
+                <h2>Liste des élèves</h2>
+                <table id="eleves-table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Matricule</th>
+                            <th>RIO</th>
+                            <th>Section</th>
+                            <th>Promotion</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+
+            <section id="eleves-add" class="section">
+                <h2>Ajouter un élève</h2>
+                <form id="form-add-eleve" class="form-eleve">
+                    <div class="form-group">
+                        <label for="nom">Nom :</label>
+                        <input type="text" id="nom" name="nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prenom">Prénom :</label>
+                        <input type="text" id="prenom" name="prenom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="matricule">Matricule :</label>
+                        <input type="text" id="matricule" name="matricule" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rio">RIO :</label>
+                        <input type="text" id="rio" name="rio">
+                    </div>
+                    <div class="form-group">
+                        <label for="section">Section :</label>
+                        <input type="text" id="section" name="section">
+                    </div>
+                    <div class="form-group">
+                        <label for="promotion">Promotion :</label>
+                        <input type="text" id="promotion" name="promotion">
+                    </div>
+                    <button type="submit" class="btn-primary">Ajouter</button>
+                </form>
+            </section>
+
+            <section id="rapports" class="section">
+                <h2>Rapports</h2>
+                <p>Consultez les rapports d'activité.</p>
+            </section>
+
+            <section id="parametres" class="section">
+                <h2>Paramètres</h2>
+                <p>Configurez les paramètres du système.</p>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
