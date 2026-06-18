@@ -82,44 +82,6 @@
             font-weight: 600;
         }
 
-        /* Menu déroulant pour Élèves */
-        .menu-item-eleves {
-            position: relative;
-        }
-
-        .menu-eleves-btn::after {
-            content: ' ▼';
-            font-size: 0.8em;
-            transition: transform 0.3s ease;
-        }
-
-        .menu-eleves-btn.open::after {
-            transform: rotate(180deg);
-        }
-
-        .submenu {
-            display: none;
-            list-style: none;
-            background-color: #1a252f;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .submenu.active {
-            display: block;
-        }
-
-        .submenu li a {
-            padding: 10px 50px;
-            font-size: 0.9em;
-            border-right: 2px solid transparent;
-        }
-
-        .submenu li a:hover {
-            background-color: #2c3e50;
-            border-right-color: #667eea;
-        }
-
         /* Fenêtre centrale */
         .content {
             flex: 1;
@@ -334,6 +296,25 @@
             margin-top: 10px;
         }
 
+        .filters-section {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .filters-section h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -389,6 +370,10 @@
             table td {
                 padding: 8px;
             }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -404,13 +389,7 @@
                 <li><a href="#reception" class="nav-link">📦 Réception</a></li>
                 <li><a href="#distribution" class="nav-link">🎁 Distribution</a></li>
                 <li><a href="#inventaire" class="nav-link">📊 Inventaire</a></li>
-                <li class="menu-item-eleves">
-                    <a href="#eleves" class="nav-link menu-eleves-btn">👥 Élèves</a>
-                    <ul class="submenu" id="submenu-eleves">
-                        <li><a href="#eleves-list" class="nav-link">📋 Liste des élèves</a></li>
-                        <li><a href="#eleves-add" class="nav-link">➕ Ajouter un élève</a></li>
-                    </ul>
-                </li>
+                <li><a href="#eleves" class="nav-link">👥 Élèves</a></li>
                 <li><a href="#rapports" class="nav-link">📈 Rapports</a></li>
                 <li><a href="#administration" class="nav-link">⚙️ Administration</a></li>
             </ul>
@@ -481,18 +460,48 @@
             <!-- Section Distribution -->
             <section id="distribution" class="section">
                 <h2>🎁 Distribution</h2>
-                <div class="distribution-container">
-                    <h3>Distribuer un vêtement</h3>
-                    <div class="form-group">
-                        <label for="eleve-select">Sélectionner un élève :</label>
-                        <select id="eleve-select">
-                            <option value="">-- Choisir un élève --</option>
-                            <option value="1">Jean Dupont (MAT001)</option>
-                            <option value="2">Marie Martin (MAT002)</option>
-                            <option value="3">Pierre Bernard (MAT003)</option>
-                        </select>
-                    </div>
+                
+                <!-- Filtres de sélection -->
+                <div class="filters-section">
+                    <h4>📋 Sélectionner l'élève</h4>
+                    <div class="filters-grid">
+                        <div class="form-group">
+                            <label for="filter-promotion">Promotion :</label>
+                            <select id="filter-promotion">
+                                <option value="">-- Choisir une promotion --</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                            </select>
+                        </div>
 
+                        <div class="form-group">
+                            <label for="filter-section">Section :</label>
+                            <select id="filter-section">
+                                <option value="">-- Choisir une section --</option>
+                                <option value="Informatique">Informatique</option>
+                                <option value="Électronique">Électronique</option>
+                                <option value="Mécanique">Mécanique</option>
+                                <option value="Électricité">Électricité</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="filter-eleve">Élève :</label>
+                            <select id="filter-eleve">
+                                <option value="">-- Choisir un élève --</option>
+                                <option value="1">Jean Dupont (MAT001)</option>
+                                <option value="2">Marie Martin (MAT002)</option>
+                                <option value="3">Pierre Bernard (MAT003)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulaire de distribution -->
+                <div class="distribution-container">
+                    <h3>Distribution de vêtements</h3>
+                    
                     <div class="form-group">
                         <label for="vetement-1">T-Shirt :</label>
                         <select id="vetement-1">
@@ -638,83 +647,92 @@
                 </div>
             </section>
 
-            <!-- Section Liste des élèves -->
-            <section id="eleves-list" class="section">
-                <h2>📋 Liste des élèves</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Matricule</th>
-                            <th>RIO</th>
-                            <th>Section</th>
-                            <th>Promotion</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Dupont</td>
-                            <td>Jean</td>
-                            <td>MAT001</td>
-                            <td>RIO001</td>
-                            <td>Informatique</td>
-                            <td>2025</td>
-                            <td><button class="btn-secondary">Voir</button></td>
-                        </tr>
-                        <tr>
-                            <td>Martin</td>
-                            <td>Marie</td>
-                            <td>MAT002</td>
-                            <td>RIO002</td>
-                            <td>Électronique</td>
-                            <td>2025</td>
-                            <td><button class="btn-secondary">Voir</button></td>
-                        </tr>
-                        <tr>
-                            <td>Bernard</td>
-                            <td>Pierre</td>
-                            <td>MAT003</td>
-                            <td>RIO003</td>
-                            <td>Mécanique</td>
-                            <td>2026</td>
-                            <td><button class="btn-secondary">Voir</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
+            <!-- Section Élèves -->
+            <section id="eleves" class="section">
+                <h2>👥 Élèves</h2>
+                <div style="margin-bottom: 30px;">
+                    <button class="btn-primary" id="btn-show-list">📋 Voir la liste</button>
+                    <button class="btn-primary" id="btn-show-add" style="margin-left: 10px;">➕ Ajouter un élève</button>
+                </div>
 
-            <!-- Section Ajouter élève -->
-            <section id="eleves-add" class="section">
-                <h2>➕ Ajouter un élève</h2>
-                <form class="form-eleve">
-                    <div class="form-group">
-                        <label for="nom">Nom :</label>
-                        <input type="text" id="nom" placeholder="Entrez le nom" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="prenom">Prénom :</label>
-                        <input type="text" id="prenom" placeholder="Entrez le prénom" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="matricule">Matricule :</label>
-                        <input type="text" id="matricule" placeholder="Entrez le matricule (ex: MAT004)" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="rio">RIO :</label>
-                        <input type="text" id="rio" placeholder="Entrez le RIO (optionnel)">
-                    </div>
-                    <div class="form-group">
-                        <label for="section">Section :</label>
-                        <input type="text" id="section" placeholder="Entrez la section (ex: Informatique)">
-                    </div>
-                    <div class="form-group">
-                        <label for="promotion">Promotion :</label>
-                        <input type="text" id="promotion" placeholder="Entrez la promotion (ex: 2025)">
-                    </div>
-                    <button type="submit" class="btn-primary">✓ Ajouter l'élève</button>
-                </form>
+                <!-- Sous-section : Liste des élèves -->
+                <div id="eleves-list-container" style="display: none;">
+                    <h3>Liste des élèves</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Matricule</th>
+                                <th>RIO</th>
+                                <th>Section</th>
+                                <th>Promotion</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dupont</td>
+                                <td>Jean</td>
+                                <td>MAT001</td>
+                                <td>RIO001</td>
+                                <td>Informatique</td>
+                                <td>2025</td>
+                                <td><button class="btn-secondary">Voir</button></td>
+                            </tr>
+                            <tr>
+                                <td>Martin</td>
+                                <td>Marie</td>
+                                <td>MAT002</td>
+                                <td>RIO002</td>
+                                <td>Électronique</td>
+                                <td>2025</td>
+                                <td><button class="btn-secondary">Voir</button></td>
+                            </tr>
+                            <tr>
+                                <td>Bernard</td>
+                                <td>Pierre</td>
+                                <td>MAT003</td>
+                                <td>RIO003</td>
+                                <td>Mécanique</td>
+                                <td>2026</td>
+                                <td><button class="btn-secondary">Voir</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Sous-section : Ajouter élève -->
+                <div id="eleves-add-container" style="display: none;">
+                    <h3>Ajouter un élève</h3>
+                    <form class="form-eleve">
+                        <div class="form-group">
+                            <label for="nom">Nom :</label>
+                            <input type="text" id="nom" placeholder="Entrez le nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="prenom">Prénom :</label>
+                            <input type="text" id="prenom" placeholder="Entrez le prénom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="matricule">Matricule :</label>
+                            <input type="text" id="matricule" placeholder="Entrez le matricule (ex: MAT004)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rio">RIO :</label>
+                            <input type="text" id="rio" placeholder="Entrez le RIO (optionnel)">
+                        </div>
+                        <div class="form-group">
+                            <label for="section">Section :</label>
+                            <input type="text" id="section" placeholder="Entrez la section (ex: Informatique)">
+                        </div>
+                        <div class="form-group">
+                            <label for="promotion">Promotion :</label>
+                            <input type="text" id="promotion" placeholder="Entrez la promotion (ex: 2025)">
+                        </div>
+                        <button type="submit" class="btn-primary">✓ Ajouter l'élève</button>
+                    </form>
+                </div>
             </section>
 
             <!-- Section Rapports -->
@@ -859,10 +877,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('.section');
-            const menuElevesBtn = document.querySelector('.menu-eleves-btn');
-            const submenu = document.getElementById('submenu-eleves');
+            const btnShowList = document.getElementById('btn-show-list');
+            const btnShowAdd = document.getElementById('btn-show-add');
+            const elevesListContainer = document.getElementById('eleves-list-container');
+            const elevesAddContainer = document.getElementById('eleves-add-container');
+            
+            const filterPromotion = document.getElementById('filter-promotion');
+            const filterSection = document.getElementById('filter-section');
+            const filterEleve = document.getElementById('filter-eleve');
 
-            // Navigation
+            // Navigation principale
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -881,30 +905,45 @@
                     navLinks.forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
 
-                    // Fermer le sous-menu si on n'est pas dans Élèves
-                    if (targetId !== 'eleves' && !targetId.includes('eleves')) {
-                        submenu.classList.remove('active');
-                        menuElevesBtn.classList.remove('open');
+                    // Réinitialiser les sous-sections Élèves
+                    if (targetId === 'eleves') {
+                        elevesListContainer.style.display = 'none';
+                        elevesAddContainer.style.display = 'none';
                     }
                 });
             });
 
-            // Menu déroulant Élèves
-            menuElevesBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                submenu.classList.toggle('active');
-                this.classList.toggle('open');
+            // Boutons dans la section Élèves
+            if (btnShowList) {
+                btnShowList.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    elevesListContainer.style.display = 'block';
+                    elevesAddContainer.style.display = 'none';
+                });
+            }
+
+            if (btnShowAdd) {
+                btnShowAdd.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    elevesListContainer.style.display = 'none';
+                    elevesAddContainer.style.display = 'block';
+                });
+            }
+
+            // Gestion des filtres de distribution
+            filterPromotion.addEventListener('change', function() {
+                console.log('Promotion sélectionnée:', this.value);
             });
 
-            // Fermer le sous-menu si on clique ailleurs
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.menu-item-eleves')) {
-                    submenu.classList.remove('active');
-                    menuElevesBtn.classList.remove('open');
-                }
+            filterSection.addEventListener('change', function() {
+                console.log('Section sélectionnée:', this.value);
             });
 
-            // Gestion des formulaires
+            filterEleve.addEventListener('change', function() {
+                console.log('Élève sélectionné:', this.value);
+            });
+
+            // Gestion du formulaire d'ajout
             const formAddEleve = document.querySelector('.form-eleve');
             if (formAddEleve) {
                 formAddEleve.addEventListener('submit', function(e) {
@@ -918,7 +957,7 @@
             const btns = document.querySelectorAll('.btn-primary, .btn-secondary');
             btns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
-                    if (this.type !== 'submit') {
+                    if (this.type !== 'submit' && !this.id) {
                         e.preventDefault();
                     }
                 });
